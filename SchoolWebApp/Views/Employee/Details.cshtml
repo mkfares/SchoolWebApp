@@ -34,9 +34,25 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
 
+        <dt>
+            Roles
+        </dt>
+
+        <dd>
+            @if (ViewBag.Roles.Count == 0)
+            {
+                <span>This employee is not member of any role</span>
+            }
+            <ul class="list-unstyled list-inline">
+                @foreach (var item in ViewBag.Roles)
+                {
+                    <li>@Html.DisplayFor(ItemModel => item)</li>
+                }
+            </ul>
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit Employee", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to Employee List", "Index")
 </p>

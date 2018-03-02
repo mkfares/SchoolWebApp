@@ -31,12 +31,12 @@ namespace SchoolWebApp.ViewModels
         //[StringLength(256)]
         //public string UserName { get; set; }
 
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        public List<IdentityRole> Roles { get; set; }
     }
 }

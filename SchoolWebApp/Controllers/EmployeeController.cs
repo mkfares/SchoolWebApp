@@ -70,25 +70,51 @@ namespace SchoolWebApp.Controllers
         }
 
         // GET: Employee/Details/5
-        public ActionResult Details(int id)
+        // Example of displaying custom error view (Views/Shared/Error.cshtml) when id is null
+        // The is parameter changed from int to int? to accept nulls
+        public ActionResult Details(int? id)
         {
-            // Find the user then cast her to employee
-            var user = (Employee) UserManager.FindById(id);
-            EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
-            return View(model);
+            if (id != null)
+            {
+                // Convert id to int instead of int?
+                int userId = id ?? default(int);
+
+                // find the user in the database
+                var user = UserManager.FindById(userId);
+
+                // Check if the user exists and it is an emplyee not a simple application user
+                if (user != null && user is Employee)
+                {
+                    user = (Employee)user;
+                    EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
+                    ViewBag.Roles = UserManager.GetRoles(userId).ToList();
+
+                    return View(model);
+                }
+                else
+                {
+                    // Customize the error view: /Views/Shared/Error.cshtml
+                    return View("Error");
+                }
+            }
+            else
+            {
+                return View("Error");
+            }
         }
 
         // GET: Employee/Create
         public ActionResult Create()
         {
-            //TODO: Add this list to EmployeeViewModel as a propeerty
-            //ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Name", "Name");
+            // Example of usage of a checkbox list. See the /Views/Employee/Create.cshtml view
+            ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
         }
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(EmployeeViewModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(EmployeeViewModel model, params string[] roles)
         {
             if (ModelState.IsValid)
             {
@@ -104,46 +130,124 @@ namespace SchoolWebApp.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    if (roles != null)
+                    {
+                        // Add user to selected roles
+                        var roleResult = UserManager.AddToRoles(user.Id, roles);
+
+                        if (roleResult.Succeeded)
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            // Display error messages in the view @Html.ValidationSummary()
+                            ModelState.AddModelError(string.Empty, roleResult.Errors.First());
+
+                            // Create a check list object
+                            ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
+
+                            // Return a view if you want to see error message saved in ModelState
+                            // Redirect() and RedirectToAction() clear the messages
+                            return View();
+                        }
+                    }
+                }
+                else
+                {
+                    // See above comment for ModelState errors
+                    ModelState.AddModelError(string.Empty, result.Errors.First());
+                    ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
+                    return View();
                 }
             }
+
+            ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
 
         }
 
         // GET: Employee/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var user = (Employee)UserManager.FindById(id);
-            if (user == null)
+            if (id != null)
             {
-                return HttpNotFound();
+                var userId = id ?? default(int);
+
+                var user = (Employee)UserManager.FindById(userId);
+                if (user == null)
+                {
+                    //return HttpNotFound();
+                    return View("Error");
+                }
+
+                EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
+
+                var userRoles = UserManager.GetRoles(userId);
+                var rolesSelectList = db.Roles.ToList().Select(r => new SelectListItem()
+                {
+                    Selected = userRoles.Contains(r.Name),
+                    Text = r.Name,
+                    Value = r.Name
+                });
+
+                ViewBag.RolesSelectList = rolesSelectList;
+
+                return View(model);
             }
 
-            EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
-            return View(model);
+            //return HttpNotFound();
+            return View("Error");
         }
 
         // POST: Employee/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, EmployeeViewModel model)
+        public ActionResult Edit(int? id, EmployeeViewModel model, params string[] roles)
         {
             // Exclude Password and ConfirmPassword properties from the model otherwise modelstate is false
             ModelState.Remove("Password");
             ModelState.Remove("ConfirmPassword");
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && id != null)
             {
-                var user = (Employee)UserManager.FindById(id);
+
+                // Convert id to non-nullable int
+                var userId = id ?? default(int);
+
+                var user = (Employee)UserManager.FindById(userId);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                //TODO: Check the usage of AutoMapper in this case (AM creates a new object that is not attached)
                 user.Email = model.Email;
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.UserName = model.Email;
-                var result = UserManager.Update(user);
+                var userResult = UserManager.Update(user);
 
-                if (result.Succeeded)
+                if (userResult.Succeeded)
                 {
+                    var userRoles = UserManager.GetRoles(user.Id);
+                    roles = roles ?? new string[] { };
+                    var roleResult = UserManager.AddToRoles(user.Id, roles.Except(userRoles).ToArray<string>());
+
+                    if (!roleResult.Succeeded)
+                    {
+                        ModelState.AddModelError(string.Empty, roleResult.Errors.First());
+                        return View();
+                    }
+
+                    roleResult = UserManager.RemoveFromRoles(user.Id, userRoles.Except(roles).ToArray<string>());
+
+                    if (!roleResult.Succeeded)
+                    {
+                        ModelState.AddModelError(string.Empty, roleResult.Errors.First());
+                        return View();
+                    }
+
                     return RedirectToAction("Index");
                 }
             }
@@ -151,34 +255,42 @@ namespace SchoolWebApp.Controllers
         }
 
         // GET: Employee/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            var user = (Employee) UserManager.FindById(id);
-            EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
-            if (user == null)
+            if (id != null)
             {
-                return HttpNotFound();
+                var userId = id ?? default(int);
+                var user = (Employee)UserManager.FindById(userId);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
+                return View(model);
             }
-            return View(model);
+
+            return HttpNotFound();
         }
 
         // POST: Employee/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             ModelState.Remove("Password");
             ModelState.Remove("ConfirmPassword");
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && id != null)
             {
-                var user = UserManager.FindById(id);
+                var userId = id ?? default(int);
+                var user = UserManager.FindById(userId);
                 if (user == null)
                 {
                     return HttpNotFound();
                 }
-                
+
                 var result = UserManager.Delete(user);
                 if (result.Succeeded)
                 {
