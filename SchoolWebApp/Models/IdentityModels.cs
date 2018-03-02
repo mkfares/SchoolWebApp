@@ -30,6 +30,9 @@ namespace SchoolWebApp.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }
