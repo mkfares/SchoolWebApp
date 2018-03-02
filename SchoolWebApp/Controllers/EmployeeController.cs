@@ -85,8 +85,17 @@ namespace SchoolWebApp.Controllers
                 // Check if the user exists and it is an emplyee not a simple application user
                 if (user != null && user is Employee)
                 {
-                    user = (Employee)user;
-                    EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
+                    var employee = (Employee)user;
+
+                    // Use Automapper instead of copying properties one by one
+                    //EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(employee);
+                    EmployeeViewModel model = new EmployeeViewModel()
+                    {
+                        Id = employee.Id,
+                        Email = employee.Email,
+                        FirstName = employee.FirstName,
+                        LastName = employee.LastName
+                    };
                     ViewBag.Roles = UserManager.GetRoles(userId).ToList();
 
                     return View(model);
@@ -118,7 +127,7 @@ namespace SchoolWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Employee
+                var employee = new Employee
                 {
                     UserName = model.Email,
                     Email = model.Email,
@@ -126,14 +135,14 @@ namespace SchoolWebApp.Controllers
                     LastName = model.LastName
                 };
 
-                var result = UserManager.Create(user, model.Password);
+                var result = UserManager.Create(employee, model.Password);
 
                 if (result.Succeeded)
                 {
                     if (roles != null)
                     {
                         // Add user to selected roles
-                        var roleResult = UserManager.AddToRoles(user.Id, roles);
+                        var roleResult = UserManager.AddToRoles(employee.Id, roles);
 
                         if (roleResult.Succeeded)
                         {
@@ -174,14 +183,23 @@ namespace SchoolWebApp.Controllers
             {
                 var userId = id ?? default(int);
 
-                var user = (Employee)UserManager.FindById(userId);
-                if (user == null)
+                var employee = (Employee)UserManager.FindById(userId);
+                if (employee == null)
                 {
                     //return HttpNotFound();
                     return View("Error");
                 }
 
-                EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
+                // Use automapper instead of copying properties one by one
+                //EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(employee);
+
+                EmployeeViewModel model = new EmployeeViewModel
+                {
+                    Id = employee.Id,
+                    Email = employee.Email,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName
+                };
 
                 var userRoles = UserManager.GetRoles(userId);
                 var rolesSelectList = db.Roles.ToList().Select(r => new SelectListItem()
@@ -215,24 +233,24 @@ namespace SchoolWebApp.Controllers
                 // Convert id to non-nullable int
                 var userId = id ?? default(int);
 
-                var user = (Employee)UserManager.FindById(userId);
-                if (user == null)
+                var employee = (Employee)UserManager.FindById(userId);
+                if (employee == null)
                 {
                     return HttpNotFound();
                 }
 
                 //TODO: Check the usage of AutoMapper in this case (AM creates a new object that is not attached)
-                user.Email = model.Email;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.UserName = model.Email;
-                var userResult = UserManager.Update(user);
+                employee.Email = model.Email;
+                employee.FirstName = model.FirstName;
+                employee.LastName = model.LastName;
+                employee.UserName = model.Email;
+                var userResult = UserManager.Update(employee);
 
                 if (userResult.Succeeded)
                 {
-                    var userRoles = UserManager.GetRoles(user.Id);
+                    var userRoles = UserManager.GetRoles(employee.Id);
                     roles = roles ?? new string[] { };
-                    var roleResult = UserManager.AddToRoles(user.Id, roles.Except(userRoles).ToArray<string>());
+                    var roleResult = UserManager.AddToRoles(employee.Id, roles.Except(userRoles).ToArray<string>());
 
                     if (!roleResult.Succeeded)
                     {
@@ -240,7 +258,7 @@ namespace SchoolWebApp.Controllers
                         return View();
                     }
 
-                    roleResult = UserManager.RemoveFromRoles(user.Id, userRoles.Except(roles).ToArray<string>());
+                    roleResult = UserManager.RemoveFromRoles(employee.Id, userRoles.Except(roles).ToArray<string>());
 
                     if (!roleResult.Succeeded)
                     {
@@ -260,13 +278,13 @@ namespace SchoolWebApp.Controllers
             if (id != null)
             {
                 var userId = id ?? default(int);
-                var user = (Employee)UserManager.FindById(userId);
-                if (user == null)
+                var employee = (Employee)UserManager.FindById(userId);
+                if (employee == null)
                 {
                     return HttpNotFound();
                 }
 
-                EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(user);
+                EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(employee);
                 return View(model);
             }
 
