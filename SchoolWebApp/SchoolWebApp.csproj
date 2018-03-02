@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\IdentityModels.cs" />

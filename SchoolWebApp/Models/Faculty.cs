@@ -9,9 +9,16 @@ namespace SchoolWebApp.Models
     [Table("Faculty")]
     public class Faculty : Employee
     {
+        public Faculty()
+        {
+            Courses = new HashSet<Course>();
+        }
+
         public string Speciality { get; set; }
 
         public FacultyLevel Level { get; set; }
+
+        public virtual ICollection<Course> Courses { get; set; }
     }
 
     public enum FacultyLevel

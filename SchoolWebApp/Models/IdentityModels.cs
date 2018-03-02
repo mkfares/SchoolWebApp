@@ -33,6 +33,23 @@ namespace SchoolWebApp.Models
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Course> Courses { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Define the many-to-many relationship with the name of the table and composite primary key.
+            modelBuilder.Entity<Faculty>()
+                .HasMany(c => c.Courses)
+                .WithMany(f => f.Faculties)
+                .Map(m =>
+                {
+                    m.ToTable("FacultyCourse");
+                    m.MapLeftKey("FacultyId");
+                    m.MapRightKey("CourseId");
+                });
+        }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }
