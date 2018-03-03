@@ -1,4 +1,4 @@
-# SchoolWebApp
+# SchoolWebApp (Workshop 6)
 
 This application is an example on how to manage app users. It has the following controllers:
 - Faculty controller: simple controller without any error checking
