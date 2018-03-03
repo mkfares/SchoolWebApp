@@ -11,6 +11,13 @@ using System.Web.Mvc;
 
 namespace SchoolWebApp.Controllers
 {
+    /// <summary>
+    /// Employee controller manages employees only (no subtypes such as faculty and staff)
+    /// This controller uses Employee and EmployeeViewModel classes
+    /// This is an example of controller which tests for most of the errors
+    /// This controller users AutoMapper
+    /// For simple controller see the faculty controller
+    /// </summary>
     public class EmployeeController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -56,16 +63,22 @@ namespace SchoolWebApp.Controllers
         {
             var users = db.Employees.ToList();
             var model = new List<EmployeeViewModel>();
+
             foreach (var item in users)
             {
-                model.Add(new EmployeeViewModel
+                // Copy only employees (no faculties or staff since they have their own controllers)
+                if (!(item is Faculty))
                 {
-                    Id = item.Id,
-                    Email = item.Email,
-                    FirstName = item.FirstName,
-                    LastName = item.LastName,
-                });
+                    model.Add(new EmployeeViewModel
+                    {
+                        Id = item.Id,
+                        Email = item.Email,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                    });
+                }
             }
+
             return View(model);
         }
 
@@ -89,14 +102,6 @@ namespace SchoolWebApp.Controllers
 
                     // Use Automapper instead of copying properties one by one
                     EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(employee);
-                    //EmployeeViewModel model = new EmployeeViewModel()
-                    //{
-                    //    Id = employee.Id,
-                    //    Email = employee.Email,
-                    //    FirstName = employee.FirstName,
-                    //    LastName = employee.LastName
-                    //};
-                    //ViewBag.Roles = UserManager.GetRoles(userId).ToList();
 
                     model.Roles = string.Join(" ", UserManager.GetRoles(userId).ToArray());
 
@@ -191,14 +196,6 @@ namespace SchoolWebApp.Controllers
 
                 // Use automapper instead of copying properties one by one
                 EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(employee);
-
-                //EmployeeViewModel model = new EmployeeViewModel
-                //{
-                //    Id = employee.Id,
-                //    Email = employee.Email,
-                //    FirstName = employee.FirstName,
-                //    LastName = employee.LastName
-                //};
 
                 var userRoles = UserManager.GetRoles(userId);
                 var rolesSelectList = db.Roles.ToList().Select(r => new SelectListItem()

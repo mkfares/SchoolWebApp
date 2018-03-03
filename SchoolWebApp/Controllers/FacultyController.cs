@@ -11,6 +11,11 @@ using System.Web.Mvc;
 
 namespace SchoolWebApp.Controllers
 {
+    /// <summary>
+    /// Faculty controller manage faculies using faculty and FacultyViewModel classes
+    /// This is an example of controller without error checking
+    /// See the Employee controller for advanced error checking
+    /// </summary>
     public class FacultyController : Controller
     {
         private ApplicationSignInManager _signInManager;
