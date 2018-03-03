@@ -1,13 +1,13 @@
-﻿@model SchoolWebApp.ViewModels.EmployeeViewModel
+﻿@model SchoolWebApp.ViewModels.FacultyViewModel
 
 @{
-    ViewBag.Title = "Employee Details";
+    ViewBag.Title = "Faculty Details";
 }
 
-<h2>Details</h2>
+<h2>Faculty Details</h2>
 
 <div>
-    <h4>Employee</h4>
+    <h4>Faculty</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,23 +35,31 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Speciality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Roles)
         </dt>
 
         <dd>
-            @if (Model.Roles.IsEmpty())
-            {
-                <text>This employee is not member of any role</text>
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.Roles)
-
-            }
+            @Html.DisplayFor(model => model.Roles)
         </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit Employee", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to Employee List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to Faculty List", "Index")
 </p>

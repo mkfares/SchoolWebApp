@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolWebApp.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SchoolWebApp.ViewModels
 {
     /// <summary>
-    /// Employee view model from employee model and used by employee controller
+    /// Fcaulty view model from the faculty model and used by faculty controller
+    /// The types of the properties should be the same as faculty model
+    /// Especialy nullable and non-nullable properties
     /// </summary>
-    public class EmployeeViewModel
+    public class FacultyViewModel
     {
         public int Id { get; set; }
 
@@ -37,7 +40,11 @@ namespace SchoolWebApp.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        // Used to diaplay the list of roles
+        public string Speciality { get; set; }
+
+        public FacultyLevel? Level { get; set; }
+
+        // Used to display the list of roles
         public string Roles { get; set; }
     }
 }

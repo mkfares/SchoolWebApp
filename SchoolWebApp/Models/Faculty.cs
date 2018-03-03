@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,7 @@ namespace SchoolWebApp.Models
 
         public string Speciality { get; set; }
 
-        public FacultyLevel Level { get; set; }
+        public FacultyLevel? Level { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
     }
@@ -24,8 +25,18 @@ namespace SchoolWebApp.Models
     public enum FacultyLevel
     {
         Lecturer,
+
+        [Display(Name ="Assistant Professor")]
         AssitantProfessor,
+
+        [Display(Name ="Associate Professor")]
         AssociateProfessor,
-        Professor
+
+        [Display(Name ="Full Professor")]
+        Professor,
+
+        [Display(Name ="Emeritus Professor")]
+        EmeritusProfessor
+
     }
 }

@@ -50,6 +50,8 @@ namespace SchoolWebApp.Models
                     m.MapRightKey("CourseId");
                 });
         }
+
+        public System.Data.Entity.DbSet<SchoolWebApp.ViewModels.FacultyViewModel> FacultyViewModels { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }
