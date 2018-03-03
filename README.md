@@ -10,4 +10,4 @@ You may begin with the faculty controller, Faculty class, FacultyViewModel class
 - Exanples of roles are added during the database creation (check Migrations/Configuration file)
 - Example of admin user is created with the Admin role
 - Authorization is not enforced in this version
-- Automapper is used in the Employee controller
+- [Automapper](http://automapper.org/) is used in the Employee controller
