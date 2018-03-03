@@ -7,7 +7,7 @@ This application is an example on how to manage app users. It has the following 
 You may begin with the faculty controller, Faculty class, FacultyViewModel class, Faculty views
 
 ## Features
-- Roles are added when the database is created in the Migrations/Configuration file
-- An example of admin user is created and added to the Admin role
+- Exanples of roles are added during the database creation (check Migrations/Configuration file)
+- Example of admin user is created with the Admin role
 - Authorization is not enforced in this version
-- Automapper is used in this version
+- Automapper is used in the Employee controller
