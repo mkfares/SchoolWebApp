@@ -18,8 +18,8 @@ namespace SchoolWebApp.Migrations
             string[] roles = { "Admin", "Faculty", "Staff" };
 
             //TODO Change admin user login information
-            string adminEmail = "admin@dah.edu";
-            string adminUserName = "admin@dah.edu";
+            string adminEmail = "admin@mail.edu";
+            string adminUserName = "admin@mail.edu";
             string adminPassword = "Admin1!";
 
 
