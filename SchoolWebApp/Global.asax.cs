@@ -18,7 +18,7 @@ namespace SchoolWebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            // Register AutoMapper at app startup
+            // Register AutoMapper the app starts
             AutoMapperConfig.RegisterMappings();
         }
     }
