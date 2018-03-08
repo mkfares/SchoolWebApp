@@ -12,3 +12,4 @@ You may begin with the faculty controller, Faculty class, FacultyViewModel class
 - Authorization is not enforced in this version
 - [Automapper](http://automapper.org/) is used in the Employee controller
 - Dropdown List in Faculty Controller
+- Database Seeding
