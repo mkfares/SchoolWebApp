@@ -11,3 +11,4 @@ You may begin with the faculty controller, Faculty class, FacultyViewModel class
 - Example of admin user is created with the Admin role
 - Authorization is not enforced in this version
 - [Automapper](http://automapper.org/) is used in the Employee controller
+- Dropdown List in Faculty Controller
