@@ -64,10 +64,10 @@ namespace SchoolWebApp.Migrations
             }
 
             //NOTE Add department sample
-            CreateDepartment(context);
+            AddDepartments(context);
         }
 
-        private void CreateDepartment(ApplicationDbContext context)
+        private void AddDepartments(ApplicationDbContext context)
         {
             context.Departments.AddOrUpdate(
                   p => p.Name, // Use name instead of Id (Id does not work since it is an identity - generated automatically by the database)
