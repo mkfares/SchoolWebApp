@@ -11,9 +11,8 @@ namespace SchoolWebApp.Models
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
+
             return userIdentity;
         }
     }
@@ -34,6 +33,7 @@ namespace SchoolWebApp.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -50,8 +50,6 @@ namespace SchoolWebApp.Models
                     m.MapRightKey("CourseId");
                 });
         }
-
-        public System.Data.Entity.DbSet<SchoolWebApp.ViewModels.FacultyViewModel> FacultyViewModels { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

@@ -73,6 +73,7 @@ namespace SchoolWebApp.Controllers
                     LastName = user.LastName,
                     Speciality = user.Speciality,
                     Level = user.Level,
+                    Department = user.Department.Name,
                 });
             }
             return View(model);
@@ -98,6 +99,7 @@ namespace SchoolWebApp.Controllers
                     LastName = faculty.LastName,
                     Speciality = faculty.Speciality,
                     Level = faculty.Level,
+                    Department = faculty.Department.Name,
                     Roles = string.Join(" ", UserManager.GetRoles(id).ToArray())
                 };
 
@@ -113,6 +115,10 @@ namespace SchoolWebApp.Controllers
         // GET: Faculty/Create
         public ActionResult Create()
         {
+            // Fill in the ViewBag for the dropdown list
+            // Id is the value of the HTML select
+            // Name is the Text of the HTML selct
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
             return View();
         }
 
@@ -123,6 +129,7 @@ namespace SchoolWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Find department
                 var faculty = new Faculty
                 {
                     UserName = model.Email,
@@ -131,6 +138,7 @@ namespace SchoolWebApp.Controllers
                     LastName = model.LastName,
                     Speciality = model.Speciality,
                     Level = model.Level,
+                    DepartmentId = model.DepartmentId,
                 };
 
                 var result = UserManager.Create(faculty, model.Password);
@@ -146,20 +154,22 @@ namespace SchoolWebApp.Controllers
                     }
                     else
                     {
+                        ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
                         // Display error messages in the view @Html.ValidationSummary()
                         ModelState.AddModelError(string.Empty, roleResult.Errors.First());
-
                         return View();
                     }
                 }
                 else
                 {
+                    ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
                     // Display error messages in the view @Html.ValidationSummary()
                     ModelState.AddModelError(string.Empty, result.Errors.First());
                     return View();
                 }
             }
 
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
             return View();
 
         }
@@ -183,9 +193,12 @@ namespace SchoolWebApp.Controllers
                 LastName = faculty.LastName,
                 Speciality = faculty.Speciality,
                 Level = faculty.Level,
+                DepartmentId = faculty.DepartmentId,
                 Roles = string.Join(" ", UserManager.GetRoles(id).ToArray())
             };
 
+            // Prepare the dropdown list
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", faculty.DepartmentId);
             return View(model);
         }
 
@@ -213,6 +226,7 @@ namespace SchoolWebApp.Controllers
                 faculty.UserName = model.Email;
                 faculty.Speciality = model.Speciality;
                 faculty.Level = model.Level;
+                faculty.DepartmentId = model.DepartmentId;
 
                 var userResult = UserManager.Update(faculty);
 
@@ -221,6 +235,8 @@ namespace SchoolWebApp.Controllers
                     return RedirectToAction("Index");
                 }
             }
+
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", model.DepartmentId);
             return View();
         }
 
@@ -234,7 +250,6 @@ namespace SchoolWebApp.Controllers
             }
 
             FacultyViewModel model = Mapper.Map<FacultyViewModel>(faculty);
-            //TODO replace Automapper
             return View(model);
         }
 

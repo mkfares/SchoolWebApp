@@ -46,5 +46,9 @@ namespace SchoolWebApp.ViewModels
 
         // Used to display the list of roles
         public string Roles { get; set; }
+
+        // Faculty Department
+        public int? DepartmentId { get; set; }
+        public string Department { get; set; }
     }
 }

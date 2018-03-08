@@ -15,6 +15,7 @@ namespace SchoolWebApp.App_Start
             {
                 cfg.CreateMap<Employee, EmployeeViewModel>().ReverseMap();
                 cfg.CreateMap<Faculty, FacultyViewModel>().ReverseMap();
+                cfg.CreateMap<Department, DepartmentViewModel>().ReverseMap();
             });
         }
     }
