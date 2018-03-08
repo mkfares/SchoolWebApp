@@ -2,6 +2,7 @@ namespace SchoolWebApp.Migrations
 {
     using Microsoft.AspNet.Identity;
     using SchoolWebApp.Models;
+    using System;
     using System.Data.Entity.Migrations;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
@@ -47,7 +48,7 @@ namespace SchoolWebApp.Migrations
                 EmailConfirmed = true,
                 LockoutEnabled = false
             };
-            
+
             // Create admin user
             if (userManager.FindByName(admin.UserName) == null)
             {
@@ -61,6 +62,20 @@ namespace SchoolWebApp.Migrations
             {
                 userManager.AddToRole(admin.Id, roles[0]);
             }
+
+            //NOTE Add department sample
+            CreateDepartment(context);
+        }
+
+        private void CreateDepartment(ApplicationDbContext context)
+        {
+            context.Departments.AddOrUpdate(
+                  p => p.Name, // Use name instead of Id (Id does not work since it is an identity - generated automatically by the database)
+                  new Department { Name = "CS" },
+                  new Department { Name = "MIS" },
+                  new Department { Name = "HR" },
+                  new Department { Name = "IT" }
+                  );
         }
     }
 }

@@ -134,8 +134,13 @@ namespace SchoolWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Employee employee = Mapper.Map<Employee>(model);
-                employee.UserName = model.Email;
+                Employee employee = new Employee
+                {
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.Email,
+                };
 
                 var result = UserManager.Create(employee, model.Password);
 
@@ -282,7 +287,7 @@ namespace SchoolWebApp.Controllers
                 }
 
                 EmployeeViewModel model = Mapper.Map<EmployeeViewModel>(employee);
-
+                model.Roles = string.Join(" ", UserManager.GetRoles(userId).ToArray());
                 return View(model);
             }
 

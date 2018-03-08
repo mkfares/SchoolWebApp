@@ -35,13 +35,28 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+        <dd>
+            @if (Model.Roles.IsEmpty())
+        {
+            <text>This employee is not member of any role</text>
+    }
+    else
+    {
+        @Html.DisplayFor(model => model.Roles)
+
+}
+        </dd>
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-default btn-danger" /> |
             @Html.ActionLink("Back to Employee List", "Index")
         </div>
     }

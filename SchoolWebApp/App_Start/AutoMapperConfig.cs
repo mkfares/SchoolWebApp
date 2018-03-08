@@ -13,7 +13,7 @@ namespace SchoolWebApp.App_Start
         {
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Employee, EmployeeViewModel>().ReverseMap();
+                cfg.CreateMap<Employee, EmployeeViewModel>(AutoMapper.MemberList.Source).ReverseMap();
                 cfg.CreateMap<Faculty, FacultyViewModel>().ReverseMap();
                 cfg.CreateMap<Department, DepartmentViewModel>().ReverseMap();
             });

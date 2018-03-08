@@ -249,7 +249,18 @@ namespace SchoolWebApp.Controllers
                 return HttpNotFound();
             }
 
-            FacultyViewModel model = Mapper.Map<FacultyViewModel>(faculty);
+            FacultyViewModel model = new FacultyViewModel
+            {
+                Id = faculty.Id,
+                Department = faculty.Department.Name,
+                Email = faculty.Email,
+                FirstName = faculty.FirstName,
+                LastName = faculty.LastName,
+                Level = faculty.Level,
+                Speciality = faculty.Speciality,
+                Roles = string.Join(" ", UserManager.GetRoles(id).ToArray()),
+            };
+
             return View(model);
         }
 
