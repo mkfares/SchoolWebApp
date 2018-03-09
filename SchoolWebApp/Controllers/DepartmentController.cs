@@ -66,7 +66,7 @@ namespace SchoolWebApp.Controllers
             if (ModelState.IsValid)
             {
                 Department department = Mapper.Map<DepartmentViewModel, Department>(model);
-                
+
                 db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");
