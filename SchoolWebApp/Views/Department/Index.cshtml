@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<SchoolWebApp.ViewModels.DepartmentViewModel>
-
 @{
     ViewBag.Title = "Department List";
 }
 
 <h2>Department List</h2>
-
 <p>
     @Html.ActionLink("Create New Department", "Create")
 </p>
@@ -16,18 +14,20 @@
         </th>
         <th></th>
     </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+                @* Replace with  List of Faculties in this department *@
+                @Ajax.ActionLink("Faculties", "ListFacultiesPartial", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "FacultyList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
+            </td>
+        </tr>
+    }
 </table>
+<div id="FacultyList"></div>

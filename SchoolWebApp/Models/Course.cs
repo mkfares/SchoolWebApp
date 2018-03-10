@@ -14,6 +14,7 @@ namespace SchoolWebApp.Models
         {
             Faculties = new HashSet<Faculty>();
         }
+
         public int CourseId { get; set; }
 
         [Required]

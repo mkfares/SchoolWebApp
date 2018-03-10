@@ -147,5 +147,27 @@ namespace SchoolWebApp.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // GET: /Department/ListFaculties/5
+        public PartialViewResult ListFacultiesPartial(int id)
+        {
+            var users = db.Faculties.Where(d => d.DepartmentId == id).ToList();
+            var model = new List<FacultyViewModel>();
+            foreach (var user in users)
+            {
+                model.Add(new FacultyViewModel
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Speciality = user.Speciality,
+                    Level = user.Level,
+                    Department = user.Department.Name,
+                });
+            }
+
+            return PartialView(model);
+        }
     }
 }
