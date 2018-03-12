@@ -19,7 +19,9 @@ namespace SchoolWebApp.Controllers
         // GET: Department
         public ActionResult Index()
         {
+            
             var departments = db.Departments.ToList();
+          
             var model = new List<DepartmentViewModel>();
             foreach (var item in departments)
             {
