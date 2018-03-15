@@ -1,4 +1,4 @@
-# SchoolWebApp (Workshop 6)
+# SchoolWebApp (Workshop 7)
 
 This application is an example on how to manage app users. It has the following controllers:
 - Faculty controller: simple controller without any error checking
@@ -13,3 +13,4 @@ You may begin with the faculty controller, Faculty class, FacultyViewModel class
 - [Automapper](http://automapper.org/) is used in the Employee controller
 - Dropdown List in Faculty Controller
 - Database Seeding
+- Upload files (course)
