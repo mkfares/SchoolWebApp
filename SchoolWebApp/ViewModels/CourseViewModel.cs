@@ -19,11 +19,11 @@ namespace SchoolWebApp.ViewModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        // The outline file
+        // The outline file as object (used to upload a file)
         [Display(Name ="Outline File")]
         public HttpPostedFileBase Outline { get; set; }
 
-        // The outline file path
+        // The outline file path as string (used to diplay the path)
         public string OutlineFilePath { get; set; }
     }
 }

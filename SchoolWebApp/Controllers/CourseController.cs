@@ -80,37 +80,46 @@ namespace SchoolWebApp.Controllers
 
                 //TODO Remove invalid characters from the filename such as white spaces
                 // check if the uplaoded file is empty (do not upload empty files)
-                if (model.Outline.ContentLength > 0)
+                if (model.Outline != null && model.Outline.ContentLength > 0)
                 {
                     // Allowed extensions to be uploaded
-                    var extensions = new List<string> { ".pdf", ".docx", ".doc" };
+                    var extensions = new[] { "pdf", "docx", "doc" };
 
                     // using System.IO for Path class
                     // Get the file name without the path
                     string filename = Path.GetFileName(model.Outline.FileName);
 
                     // Get the extension of the file
-                    string ext = Path.GetExtension(filename);
+                    string ext = Path.GetExtension(filename).Substring(1);
 
                     // Check if the extension of the file is in the list of allowed extensions
-                    if (extensions.Contains(ext, StringComparer.OrdinalIgnoreCase))
+                    if (!extensions.Contains(ext, StringComparer.OrdinalIgnoreCase))
                     {
-                        // Set the application folder where to save the uploaded file
-                        string appFolder = "~/Content/Uploads/";
-
-                        // Generate a random string to add to the file name
-                        // This is to avoid the files with the same names
-                        var rand = Guid.NewGuid().ToString();
-
-                        // Combine the application folder location with the file name
-                        string path = Path.Combine(Server.MapPath(appFolder), rand + "-" + filename);
-
-                        // Save the file in ~/Content/Uploads/filename.xyz
-                        model.Outline.SaveAs(path);
-
-                        // Add the path to the course object
-                        course.OutlineFilePath = appFolder + rand + "-" + filename;
+                        ModelState.AddModelError(string.Empty, "Accepted file are pdf, docx, and doc documents");
+                        return View();
                     }
+
+                    // Set the application folder where to save the uploaded file
+                    string appFolder = "~/Content/Uploads/";
+
+                    // Generate a random string to add to the file name
+                    // This is to avoid the files with the same names
+                    var rand = Guid.NewGuid().ToString();
+
+                    // Combine the application folder location with the file name
+                    string path = Path.Combine(Server.MapPath(appFolder), rand + "-" + filename);
+
+                    // Save the file in ~/Content/Uploads/filename.xyz
+                    model.Outline.SaveAs(path);
+
+                    // Add the path to the course object
+                    course.OutlineFilePath = appFolder + rand + "-" + filename;
+
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Empty files are not accepted");
+                    return View();
                 }
 
                 // Save the created course to the database
