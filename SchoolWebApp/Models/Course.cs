@@ -25,6 +25,9 @@ namespace SchoolWebApp.Models
 
         public string Description { get; set; }
 
+        // Path to the outline in the Content/Uploads
+        public string OutlineFilePath { get; set; }
+
         public virtual ICollection<Faculty> Faculties { get; set; }
     }
 }
