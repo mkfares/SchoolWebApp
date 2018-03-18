@@ -122,7 +122,7 @@ namespace SchoolWebApp.Migrations
 
             // Assign faculties to courses
             AssignFacultyToCourse(context, courseCode: "BBIS101", facultyLastName: "Fac11"); // Example of named parameters
-            AssignFacultyToCourse(context, "BBIS101", "Fac22"); // Example of named parameters
+            AssignFacultyToCourse(context, "BBIS101", "Fac22");
             AssignFacultyToCourse(context, "BBIS102", "Fac11");
             AssignFacultyToCourse(context, "BBIS103", "Fac22");
             AssignFacultyToCourse(context, "BBIS301", "Fac33");
@@ -134,7 +134,8 @@ namespace SchoolWebApp.Migrations
         {
             var course = context.Courses.SingleOrDefault(c => c.Code == courseCode);
             var faculty = course.Faculties.SingleOrDefault(f => f.LastName == facultyLastName);
-            if (faculty == null)
+            //TODO Check the test
+            if (faculty != null)
                 course.Faculties.Add(context.Faculties.Single(f => f.LastName == facultyLastName));
         }
     }
