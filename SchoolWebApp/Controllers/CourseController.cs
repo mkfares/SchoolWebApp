@@ -52,7 +52,8 @@ namespace SchoolWebApp.Controllers
                 Code = course.Code,
                 Title = course.Title,
                 Description = course.Description,
-                OutlineFilePath = course.OutlineFilePath
+                OutlineFilePath = course.OutlineFilePath,
+                Faculties = course.Faculties.ToList()
             };
 
             return View(model);
@@ -146,7 +147,7 @@ namespace SchoolWebApp.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                
 
                 return RedirectToAction("Index");
             }

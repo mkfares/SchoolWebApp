@@ -39,5 +39,13 @@ namespace SchoolWebApp.ViewModels
 
         // Used to diaplay the list of roles
         public string Roles { get; set; }
+
+        // Returns First name and Last Name in one string
+        // This is also called calculated or derived property
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
     }
 }

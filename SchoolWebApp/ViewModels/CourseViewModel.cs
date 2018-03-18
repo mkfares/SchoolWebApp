@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolWebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace SchoolWebApp.ViewModels
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [DisplayFormat(NullDisplayText = "No Description")]
         public string Description { get; set; }
 
         // The outline file as object (used to upload a file)
@@ -25,5 +27,8 @@ namespace SchoolWebApp.ViewModels
 
         // The outline file path as string (used to diplay the path)
         public string OutlineFilePath { get; set; }
+
+        // List of faculties teaching this course
+        public List<Faculty> Faculties { get; set; }
     }
 }

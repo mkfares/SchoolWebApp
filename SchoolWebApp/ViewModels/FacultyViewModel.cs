@@ -1,4 +1,5 @@
 ﻿using SchoolWebApp.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SchoolWebApp.ViewModels
@@ -40,6 +41,7 @@ namespace SchoolWebApp.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [DisplayFormat(NullDisplayText = "No Sepeciality")]
         public string Speciality { get; set; }
 
         public FacultyLevel? Level { get; set; }
@@ -50,5 +52,8 @@ namespace SchoolWebApp.ViewModels
         // Faculty Department
         public int? DepartmentId { get; set; }
         public string Department { get; set; }
+
+        // List of course the faculty is teaching
+        public List<Course> Courses { get; set; }
     }
 }

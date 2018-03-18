@@ -40,7 +40,34 @@
 
         <dd>
             @Html.DisplayFor(model => model.Outline)
-            <a href="@Url.Content(Model.OutlineFilePath)">Course Outline</a>
+            @if (!String.IsNullOrEmpty(Model.OutlineFilePath))
+            {
+                <a href="@Url.Content(Model.OutlineFilePath)">Course Outline</a>
+            }
+        </dd>
+
+        @* List the faculties that are teaching this course *@
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculties)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+                @foreach (var item in Model.Faculties)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                    </tr>
+                }
+            </table>
         </dd>
 
     </dl>
