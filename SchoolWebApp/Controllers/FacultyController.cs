@@ -118,7 +118,7 @@ namespace SchoolWebApp.Controllers
             // Fill in the ViewBag for the dropdown list
             // Id is the value of the HTML select
             // Name is the Text of the HTML selct
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
+            ViewBag.DepartmentId = new SelectList(db.Departments.OrderBy(n => n.Name), "Id", "Name");
             return View();
         }
 

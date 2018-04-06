@@ -77,6 +77,25 @@ namespace SchoolWebApp.Migrations
             departments.ForEach(s => context.Departments.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();
 
+            // Add examples of employees
+            var employees = new List<Employee>
+            {
+                new Employee {UserName = "emp1", Email = "emp1@g.com", FirstName = "Emp1", LastName = "Emp11" },
+                new Employee {UserName = "emp2", Email = "emp2@g.com", FirstName = "Emp2", LastName = "Emp22" },
+                new Employee {UserName = "emp3", Email = "emp3@g.com", FirstName = "Emp3", LastName = "Emp33" },
+                new Employee {UserName = "emp4", Email = "emp4@g.com", FirstName = "Emp4", LastName = "Emp33" },
+            };
+
+            foreach (var employee in employees)
+            {
+                if (userManager.FindByName(employee.UserName) == null)
+                {
+                    userManager.Create(employee, "emp123");
+                }
+
+                // Employees are not added to any role
+            }
+
             // Add examples of faculties
             var faculties = new List<Faculty>
             {
