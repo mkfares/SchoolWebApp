@@ -26,6 +26,9 @@
 
                 @* Replace with  List of Faculties in this department *@
                 @Ajax.ActionLink("Faculties", "ListFacultiesPartial", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "FacultyList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
+
+                @* Add a badge: The number of faculties in this department *@
+                @Html.Action("GetCountFacultiesPartial", "Department", new { id = item.Id })
             </td>
         </tr>
     }

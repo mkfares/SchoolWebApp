@@ -171,5 +171,12 @@ namespace SchoolWebApp.Controllers
 
             return PartialView(model);
         }
+
+        public ActionResult GetCountFacultiesPartial(int id)
+        {
+            // Modify the condition inside the Count() to suite your needs
+            int count = db.Faculties.Count(p => p.DepartmentId == id);
+            return PartialView(count);
+        }
     }
 }
