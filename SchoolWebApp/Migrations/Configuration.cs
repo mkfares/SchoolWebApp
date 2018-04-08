@@ -68,10 +68,10 @@ namespace SchoolWebApp.Migrations
             // Add examples of departments
             var departments = new List<Department>
             {
-                  new Department { Name = "CS" },
-                  new Department { Name = "MIS" },
-                  new Department { Name = "HR" },
-                  new Department { Name = "IT" }
+                  new Department { Name = "CS", CreationDate=new DateTime(2018, 1,  13)},
+                  new Department { Name = "MIS", CreationDate=new DateTime(2017, 2,  24)},
+                  new Department { Name = "HR", CreationDate=new DateTime(2017, 3,  30)},
+                  new Department { Name = "IT", CreationDate=new DateTime(2016, 4,  18)}
             };
 
             departments.ForEach(s => context.Departments.AddOrUpdate(p => p.Name, s));
