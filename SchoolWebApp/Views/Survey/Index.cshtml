@@ -1,0 +1,46 @@
+﻿@model SchoolWebApp.Controllers.SurveyViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions)
+            </th>
+            <th>Fair</th>
+            <th>Average</th>
+            <th>Good</th>
+        </tr>
+
+        @for (int i = 0; i < Model.Questions.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(m => m.Questions[i].Id)
+                    @Html.DisplayFor(m => m.Questions[i].Text)
+                </td>
+
+                @foreach (var answer in Model.Questions[i].PossibleAnswers)
+                {
+                    <td>
+                        @Html.RadioButtonFor(m => m.Questions[i].SelectedAnswer, answer.Id, new { id = answer.Id })
+                        @*<label for="@answer.Id">@answer.Text</label>*@
+                    </td>
+                }
+                @Html.ValidationMessageFor(m => m.Questions[i].SelectedAnswer)
+            </tr>
+        }
+    </table>
+
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </div>
+    </div>
+}
