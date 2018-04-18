@@ -42,13 +42,16 @@ namespace SchoolWebApp.Migrations
             var userStore = new CustomUserStore(context);
             var userManager = new ApplicationUserManager(userStore);
 
-            //TODO Change the type of the admin user
-            var admin = new ApplicationUser
+            var admin = new Employee
             {
                 UserName = adminUserName,
                 Email = adminEmail,
                 EmailConfirmed = true,
-                LockoutEnabled = false
+                LockoutEnabled = false,
+                FirstName = "Admin",
+                LastName = "Admin",
+                PhoneNumber = "0123456789",
+                PhoneNumberConfirmed = true,
             };
 
             // Create admin user
@@ -107,6 +110,9 @@ namespace SchoolWebApp.Migrations
                     DepartmentId = departments.Single(d=>d.Name=="MIS").Id },
                 new Faculty { UserName = "fac3", Email ="fac3@g.ocm", FirstName ="Fac3", LastName ="Fac33",
                     Speciality = "Networks", Level =FacultyLevel.Lecturer,
+                    DepartmentId = departments.Single(d=>d.Name=="IT").Id },
+                                new Faculty { UserName = "fac4", Email ="fac4@g.ocm", FirstName ="Fac4", LastName ="Fac44",
+                    Speciality = "Big Data", Level =FacultyLevel.Professor,
                     DepartmentId = departments.Single(d=>d.Name=="IT").Id },
             };
 

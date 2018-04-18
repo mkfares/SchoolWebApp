@@ -30,6 +30,9 @@ namespace SchoolWebApp
                 .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
             GlobalConfiguration.Configuration.Formatters
                 .Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+
+            // Disable bundling an minification of scripts and css styles
+            System.Web.Optimization.BundleTable.EnableOptimizations = false;
         }
     }
 }
