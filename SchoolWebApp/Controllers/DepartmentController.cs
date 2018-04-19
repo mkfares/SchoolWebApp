@@ -40,6 +40,11 @@ namespace SchoolWebApp.Controllers
         }
 
         // GET: Department/Details/5
+        /// <summary>
+        /// Get department details
+        /// </summary>
+        /// <param name="id">Department Id</param>
+        /// <returns>Details view</returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
