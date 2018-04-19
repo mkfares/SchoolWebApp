@@ -59,6 +59,10 @@ namespace SchoolWebApp.Controllers
         }
 
         // GET: Employee
+        /// <summary>
+        /// List all employees in the school
+        /// </summary>
+        /// <returns>Index view</returns>
         public ActionResult Index()
         {
             var users = db.Employees.ToList();
@@ -85,6 +89,11 @@ namespace SchoolWebApp.Controllers
         // GET: Employee/Details/5
         // Example of displaying custom error view (Views/Shared/Error.cshtml) when id is null
         // The is parameter changed from int to int? to accept nulls
+        /// <summary>
+        /// Displays the employee details
+        /// </summary>
+        /// <param name="id">Employee Id</param>
+        /// <returns>Details views</returns>
         public ActionResult Details(int? id)
         {
             if (id != null)
@@ -120,6 +129,11 @@ namespace SchoolWebApp.Controllers
         }
 
         // GET: Employee/Create
+        /// <summary>
+        /// Create a new employee
+        /// Get method
+        /// </summary>
+        /// <returns>Create view</returns>
         public ActionResult Create()
         {
             // Example of usage of a checkbox list. See the /Views/Employee/Create.cshtml view
@@ -128,6 +142,13 @@ namespace SchoolWebApp.Controllers
         }
 
         // POST: Employee/Create
+        /// <summary>
+        /// Create a new employee
+        /// Post method
+        /// </summary>
+        /// <param name="model">Employee view model</param>
+        /// <param name="roles">List of roles the employee belongs to</param>
+        /// <returns>Create view - redirect to index view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(EmployeeViewModel model, params string[] roles)
@@ -186,6 +207,12 @@ namespace SchoolWebApp.Controllers
         }
 
         // GET: Employee/Edit/5
+        /// <summary>
+        /// Edit employee profile
+        /// Get method
+        /// </summary>
+        /// <param name="id">Employee Id</param>
+        /// <returns>Edit view</returns>
         public ActionResult Edit(int? id)
         {
             if (id != null)
@@ -220,6 +247,14 @@ namespace SchoolWebApp.Controllers
         }
 
         // POST: Employee/Edit/5
+        /// <summary>
+        /// Edit employee profile
+        /// Post method
+        /// </summary>
+        /// <param name="id">Employee Id</param>
+        /// <param name="model">Employee view model</param>
+        /// <param name="roles">Roles of the employee</param>
+        /// <returns>Edit view - redirect to index view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, EmployeeViewModel model, params string[] roles)
@@ -275,6 +310,12 @@ namespace SchoolWebApp.Controllers
         }
 
         // GET: Employee/Delete/5
+        /// <summary>
+        /// Delete an employee for a list
+        /// Get method
+        /// </summary>
+        /// <param name="id">Employee Id</param>
+        /// <returns>Confirm delete view</returns>
         public ActionResult Delete(int? id)
         {
             if (id != null)
@@ -295,6 +336,12 @@ namespace SchoolWebApp.Controllers
         }
 
         // POST: Employee/Delete/5
+        /// <summary>
+        /// Delete an employee
+        /// Post method
+        /// </summary>
+        /// <param name="id">Employee Id</param>
+        /// <returns>Redirected to Index view</returns>
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
