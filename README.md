@@ -14,5 +14,3 @@ You may begin with the faculty controller, Faculty class, FacultyViewModel class
 - Dropdown List in Faculty Controller
 - Database Seeding
 - Upload files (course)
-
-[API Documentation](https://github.com/mkfares/SchoolWebApp/tree/master/SchoolWebApp/_site/Index.html)
