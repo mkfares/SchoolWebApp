@@ -17,6 +17,10 @@ namespace SchoolWebApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Department
+        /// <summary>
+        /// List all departments
+        /// </summary>
+        /// <returns>Index view</returns>
         public ActionResult Index()
         {
             
