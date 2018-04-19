@@ -15,4 +15,4 @@ You may begin with the faculty controller, Faculty class, FacultyViewModel class
 - Database Seeding
 - Upload files (course)
 
-[API Documentation](https://github.com/mkfares/SchoolWebApp/tree/master/SchoolWebApp/_site/index.html)
+[API Documentation](https://github.com/mkfares/SchoolWebApp/tree/master/SchoolWebApp/_site/Index.html)
