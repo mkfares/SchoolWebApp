@@ -34,6 +34,7 @@ namespace SchoolWebApp.Controllers
                     Id = item.Id,
                     Name = item.Name,
                     CreationDate = item.CreationDate,
+                    StartTime = item.StartTime,
                 });
             }
             return View(model);
@@ -78,10 +79,10 @@ namespace SchoolWebApp.Controllers
             if (ModelState.IsValid)
             {
                 // Example on how to check the data in the view model
-                if (model.CreationDate < DateTime.Today.AddDays(-2))
+                if (model.CreationDate < DateTime.Today.AddDays(-30))
                 {
                     // The message will be displayed in @Html.ValidationMessageFor(m=>m.CreationDate)
-                    ModelState.AddModelError("CreationDate", "The creation date should not be older than two days");
+                    ModelState.AddModelError("CreationDate", "The creation date should not be older than 30 days");
 
                     // The message will be displayed in @Html.ValidationSummary()
                     ModelState.AddModelError(String.Empty, "Issue with the creation date");

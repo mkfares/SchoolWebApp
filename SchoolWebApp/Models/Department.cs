@@ -19,6 +19,8 @@ namespace SchoolWebApp.Models
 
         public DateTime CreationDate { get; set; }
 
+        public TimeSpan StartTime { get; set; }
+
         public virtual ICollection<Faculty> Faculties { get; set; }
     }
 }

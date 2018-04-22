@@ -21,6 +21,11 @@ namespace SchoolWebApp.ViewModels
         [Display(Name = "Creation Date")]
         public DateTime CreationDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Start Time")]
+        public TimeSpan StartTime { get; set; }
+
+
         // List of faculties in this department
         public List<Faculty> Faculties { get; set; }
     }

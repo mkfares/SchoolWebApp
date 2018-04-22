@@ -2483,6 +2483,19 @@ references:
   isSpec: "True"
   fullName: SchoolWebApp.Models.Department.Name
   nameWithType: Department.Name
+- uid: SchoolWebApp.Models.Department.StartTime
+  name: StartTime
+  href: api/SchoolWebApp.Models.Department.html#SchoolWebApp_Models_Department_StartTime
+  commentId: P:SchoolWebApp.Models.Department.StartTime
+  fullName: SchoolWebApp.Models.Department.StartTime
+  nameWithType: Department.StartTime
+- uid: SchoolWebApp.Models.Department.StartTime*
+  name: StartTime
+  href: api/SchoolWebApp.Models.Department.html#SchoolWebApp_Models_Department_StartTime_
+  commentId: Overload:SchoolWebApp.Models.Department.StartTime
+  isSpec: "True"
+  fullName: SchoolWebApp.Models.Department.StartTime
+  nameWithType: Department.StartTime
 - uid: SchoolWebApp.Models.Employee
   name: Employee
   href: api/SchoolWebApp.Models.Employee.html
@@ -3437,6 +3450,19 @@ references:
   isSpec: "True"
   fullName: SchoolWebApp.ViewModels.DepartmentViewModel.Name
   nameWithType: DepartmentViewModel.Name
+- uid: SchoolWebApp.ViewModels.DepartmentViewModel.StartTime
+  name: StartTime
+  href: api/SchoolWebApp.ViewModels.DepartmentViewModel.html#SchoolWebApp_ViewModels_DepartmentViewModel_StartTime
+  commentId: P:SchoolWebApp.ViewModels.DepartmentViewModel.StartTime
+  fullName: SchoolWebApp.ViewModels.DepartmentViewModel.StartTime
+  nameWithType: DepartmentViewModel.StartTime
+- uid: SchoolWebApp.ViewModels.DepartmentViewModel.StartTime*
+  name: StartTime
+  href: api/SchoolWebApp.ViewModels.DepartmentViewModel.html#SchoolWebApp_ViewModels_DepartmentViewModel_StartTime_
+  commentId: Overload:SchoolWebApp.ViewModels.DepartmentViewModel.StartTime
+  isSpec: "True"
+  fullName: SchoolWebApp.ViewModels.DepartmentViewModel.StartTime
+  nameWithType: DepartmentViewModel.StartTime
 - uid: SchoolWebApp.ViewModels.EmployeeViewModel
   name: EmployeeViewModel
   href: api/SchoolWebApp.ViewModels.EmployeeViewModel.html

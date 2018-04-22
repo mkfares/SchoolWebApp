@@ -9,6 +9,7 @@ namespace SchoolWebApp
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.timepicker.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js"
                         ));
 
@@ -28,6 +29,7 @@ namespace SchoolWebApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery.timepicker.css",
                       "~/Content/site.css"
                       ));
 

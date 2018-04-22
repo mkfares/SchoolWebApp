@@ -585,7 +585,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SchoolWebApp.Models.Department.html",
-          "hash": "8yymzeoTjBwehuPsJz0UYQ=="
+          "hash": "rPZ3AC8LpNTtoOt/6FX5sw=="
         }
       },
       "is_incremental": false,
@@ -873,7 +873,7 @@
       "output": {
         ".html": {
           "relative_path": "api/SchoolWebApp.ViewModels.DepartmentViewModel.html",
-          "hash": "6iIY7qmwZ4uk6QhYsjTA3w=="
+          "hash": "3lyUojCjNnSQ4VcE9AM5qg=="
         }
       },
       "is_incremental": false,
